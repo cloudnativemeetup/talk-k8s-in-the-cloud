@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<img src="assets/Crisp-Logo-weiss_web.png" class="crisp-logo">
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <section class="custom-section section-top-medium">
+                <div class="center-elements">
+                    <img src="assets/k8s_logo.png" class="section-image">
+                    <span class="plus-text">+</span>
+                    <img src="assets/cloud.png" class="section-image">
+                </div>
+            </section>
+            <section class="custom-section section-top-medium">
+                <ul>
+                    <li>
+                        availability
+                        <a href="https://cloud.google.com/about/locations/">https://cloud.google.com/about/locations</a>
+                    </li>
+                    <li>
+                        fexibility
+                    </li>
+                    <li>
+                        stability
+                    </li>
+                    <li>
+                        maintanance
+                    </li>
+                    <li>
+                        ...
+                    </li>
+                </ul>
+            </section>
+            <section class="custom-section section-top-medium">
+                <ul>
+                    <li>
+                        create a cluster with one command or two clicks
+                    </li>
+                    <li>
+                        auto updates
+                    </li>
+                    <li>
+                        monitoring / logging included
+                    </li>
+                    <li>
+                        autoscale of nodes
+                    </li>
+                    <li>
+                        sales channel
+                    </li>
+                    <li>
+                        access authorization
+                    </li>
+                    <li>
+                        no etcd backups needed
+                    </li>
+                    <li>
+                        build pipeline
+                    </li>
+                    <li>
+                        ...
+                    </li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section class="section-top-small">
+                <img src="assets/k8s_logo.png" class="section-image">
+                <h3>Kubernetes</h3>
+            </section>
+            <section class="section-top-small">
+                <img src="assets/container.gif" class="section-image-big">
+                <div>Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.</div>
+            </section>
+            <section class="section-top-small">
+                <h3>Pod Example</h3>
+                <code class="bash hljs" data-trim data-noescape style="text-align: left;font-size: 18px;white-space: pre-wrap;">
+                    apiVersion: v1
+                    kind: Pod
+                    metadata:
+                      name: nginx
+                    spec:
+                      containers:
+                        - name: nginx
+                        image: nginx:latest
+                </code>
+            </section>
+            <section class="section-top-small">
+                <h3>Deployment Example</h3>
+                <code class="bash hljs" data-trim data-noescape style="text-align: left;font-size: 18px;white-space: pre-wrap;">
+                   apiVersion: apps/v1
+                   kind: Deployment
+                   metadata:
+                     name: nginx-deployment
+                   spec:
+                     selector:
+                       matchLabels:
+                         app: nginx
+                     replicas: 2
+                     template:
+                       metadata:
+                         labels:
+                           app: nginx
+                       spec:
+                         containers:
+                         - name: nginx
+                           image: nginx:latest
+                           ports:
+                           - containerPort: 80
+                </code>
+            </section>
+        </section>
+        <section>
+            <section class="section-top-small">
+                <img src="assets/gcloud.png" class="section-image-big">
+            </section>
+            <section class="section-top-large">
+                <h3>Download / Setup G-Cloud SDK</h3>
+                <a href="https://cloud.google.com/sdk/">https://cloud.google.com/sdk/</a>
+            </section>
+            <section class="section-top-large">
+                <h3>create a project</h3>
+                <code class="bash hljs" data-trim data-noescape>
+                    gcloud projects create [PROJECT_ID]
+                </code>
+            </section>
+            <section class="section-top-large">
+                <h3>set project</h3>
+                <code class="bash hljs" data-trim data-noescape>
+                    gcloud config set project [PROJECT_ID]
+                </code>
+            </section>
+            <section class="section-top-large">
+                <h3>set zone</h3>
+                <code class="bash hljs" data-trim data-noescape>
+                    gcloud config set compute/zone [COMPUTE_ZONE] (e.g. us-central1-a)
+                </code>
+            </section>
+            <section class="section-top-large">
+                <h3>activate api subcription</h3>
+                <a href="https://console.cloud.google.com/kubernetes">gcloud</a>
+            </section>
+            <section class="section-top-large">
+                <h3>create a k8s cluster</h3>
+                <code class="bash hljs" data-trim data-noescape>
+                    gcloud container clusters create [CLUSTER_NAME]
+                </code>
+            </section>
+            <section class="section-top-large">
+                <h3>get credentials</h3>
+                <code class="bash hljs" data-trim data-noescape>
+                    gcloud container clusters get-credentials [CLUSTER_NAME]
+                </code>
+            </section>
+            <section class="section-top-medium">
+                <h3>run test app</h3>
+                <code class="bash hljs" data-trim data-noescape>
+                    kubectl run hello-server --image gcr.io/google-samples/hello-app:1.0 --port 8080
+                </code>
+                <p></p>
+                <code class="bash hljs" data-trim data-noescape>
+                    kubectl expose deployment hello-server --type "LoadBalancer"
+                </code>
+                <p></p>
+                <code class="bash hljs" data-trim data-noescape>
+                    kubectl get service hello-server
+                </code>
+            </section>
+        </section>
+    </div>
+</div>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+  // More info about config & dependencies:
+  // - https://github.com/hakimel/reveal.js#configuration
+  // - https://github.com/hakimel/reveal.js#dependencies
+  Reveal.initialize({
+    dependencies: [
+      {src: 'plugin/markdown/marked.js'},
+      {src: 'plugin/markdown/markdown.js'},
+      {src: 'plugin/notes/notes.js', async: true},
+      {
+        src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+          hljs.initHighlightingOnLoad();
+        }
+      }
+    ]
+  });
+</script>
+</body>
+</html>
